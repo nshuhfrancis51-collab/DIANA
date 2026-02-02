@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <title>HELLO TAXI - Taxi Booking in Buea</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <i class="fas fa-taxi"></i>
+                <span>HELLO TAXI</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+                <li><a href="#book" onclick="closeMobileMenu()">Book Taxi</a></li>
+                <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
+                <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+                <li><a href="passenger.html" class="btn-admin">📱 Passenger Dashboard</a></li>
+                <li><a href="driver.html" class="btn-admin">🚗 Driver Dashboard</a></li>
+                <li><a href="admin.html" class="btn-admin">👨‍💼 Admin Panel</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to HELLO TAXI</h1>
+                <p>Fast, Safe, and Reliable Taxi Service in Buea Municipality</p>
+                <button class="btn btn-primary" onclick="scrollToBooking()">Book Now</button>
+            </div>
+            <div class="hero-image">
+                <i class="fas fa-car-side"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="book" class="booking-section">
+        <div class="container">
+            <h2>Book Your Taxi</h2>
+            <div class="booking-form">
+                <form id="bookingForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pickupLocation">Pickup Location *</label>
+                            <input type="text" id="pickupLocation" name="pickupLocation" placeholder="Enter pickup location" required>
+                            <div id="pickupSuggestions" class="suggestions"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dropoffLocation">Dropoff Location *</label>
+                            <input type="text" id="dropoffLocation" name="dropoffLocation" placeholder="Enter dropoff location" required>
+                            <div id="dropoffSuggestions" class="suggestions"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pickupTime">Pickup Time *</label>
+                            <input type="datetime-local" id="pickupTime" name="pickupTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="passengerCount">Number of Passengers *</label>
+                            <select id="passengerCount" name="passengerCount" required>
+                                <option value="">Select passengers</option>
+                                <option value="1">1 Passenger</option>
+                                <option value="2">2 Passengers</option>
+                                <option value="3">3 Passengers</option>
+                                <option value="4">4 Passengers</option>
+                                <option value="5">5+ Passengers</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carType">Car Type *</label>
+                            <select id="carType" name="carType" required onchange="updatePrice()">
+                                <option value="">Select car type</option>
+                                <option value="economy">Economy - 200 XAF/km</option>
+                                <option value="comfort">Comfort - 500 XAF/km</option>
+                                <option value="premium">Premium - 1000 XAF/km</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentMethod">Payment Method *</label>
+                            <select id="paymentMethod" name="paymentMethod" required>
+                                <option value="">Select payment method</option>
+                                <option value="mobile-money">Mobile Money (MTN)</option>
+                                <option value="orange-money">Orange Money</option>
+                                <option value="cash">Cash Payment</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="specialRequests">Special Requests</label>
+                            <textarea id="specialRequests" name="specialRequests" placeholder="Any special requirements?"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="price-display">
+                        <span>Estimated Fare: </span>
+                        <span id="estimatedPrice">0 XAF</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">Book Taxi</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>24/7 Availability</h3>
+                    <p>Book a taxi anytime, day or night. We're always ready to serve you.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Safe & Secure</h3>
+                    <p>Verified drivers and real-time tracking for your peace of mind.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h3>Transparent Pricing</h3>
+                    <p>No hidden charges. Know your fare before you book.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>Customer Support</h3>
+                    <p>Dedicated support team available to help you 24/7.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Active Bookings Section -->
+    <section id="bookings" class="bookings-section">
+        <div class="container">
+            <h2>Your Bookings</h2>
+            <div id="bookingsList" class="bookings-list">
+                <p class="empty-state">No active bookings. Book a taxi to get started!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h3>Phone</h3>
+                        <p><a href="tel:+237654900979" style="color: #333; text-decoration: none;">+237 654 900 979</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h3>Email</h3>
+                        <p><a href="mailto:nshuhfrancis51@gmail.com" style="color: #333; text-decoration: none;">nshuhfrancis51@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>Location</h3>
+                        <p>Buea Municipality, Cameroon</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 HELLO TAXI. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Booking Confirmation</h2>
+            <div id="bookingDetails"></div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmBooking()">Confirm Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tracking Modal -->
+    <div id="trackingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeTrackingModal()">&times;</span>
+            <h2>Track Your Taxi</h2>
+            <div id="trackingInfo"></div>
+            <div id="driverInfo" class="driver-info"></div>
+            <div id="map" class="map-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Website is now freely accessible - no authentication required
+        // All dashboards can be accessed directly from the navigation menu
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>
